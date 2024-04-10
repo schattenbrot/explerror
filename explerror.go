@@ -60,7 +60,10 @@ func Default() {
 
 // sendError sends an error message using the provided send-function and logs the error
 func sendError(w http.ResponseWriter, statusCode int, err error) {
-	logger.Printf("%d: %s", statusCode, err.Error())
+	// Only log if a logger is defined
+	if logger != nil {
+		logger.Printf("%d: %s", statusCode, err.Error())
+	}
 
 	theError := &Error{
 		StatusCode: statusCode,
